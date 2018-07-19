@@ -6,7 +6,7 @@ var tasks = require('../controllers/tasks.js');
 module.exports = function(app){
 
     // index
-    app.get('/', function(req, res){
+    app.get('/task', function(req, res){
         tasks.index(req, res);
     })
 
@@ -17,6 +17,7 @@ module.exports = function(app){
 
     // create a new task
     app.post('/task', function(req, res){
+        console.log("creating routes");
         tasks.create(req, res);
     })
     
@@ -26,7 +27,8 @@ module.exports = function(app){
     })
 
     // delete task by id
-    app.delete('/task/:id', function(req, res){
+    app.delete('/task/:id' , function(req, res){
+        console.log("I'm in your routing DELETE-----------------")
         tasks.delete(req, res);
     })
 }

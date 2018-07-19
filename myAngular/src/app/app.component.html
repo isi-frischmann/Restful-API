@@ -1,0 +1,59 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+
+      <h1>These are your Tasks:</h1>
+
+      <!-- {{tasks.completed}} -->
+      <!-- if you want to show all tasks by clicking the button -->
+      <button (click)="onButtonClick()">Click to show all Tasks!</button>
+
+      <div *ngFor="let task of tasks">Title: {{task.title}}
+
+        <button (click)="onButShowCompl(task)">Show</button>
+        <button (click)="onDelete(task._id)">Delete Task</button>
+        <button (click)="onEdit(task)">Edit Task</button>
+
+        <button (click)="onButShowCompl(task)">Show Description</button>
+
+      </div>
+
+      <!-- show a specific task when you click on it -->
+      <div>
+        <p *ngIf="specTask"> Title: {{specTask.title}} <br>
+          Description: {{specTask.description}} <br>
+          Completed: {{specTask.completed}}</p>
+        <!-- {{specTask}} -->
+      </div>
+
+      <div *ngIf="tasks.length > 0" >
+      <h3>Create a new Task</h3>
+
+      <form (submit)="onSubmit()">
+         <!-- <p>{{ newTask | json }}</p> -->
+
+         <input type="text" name="newTask.title" [(ngModel)]="newTask.title">
+         <input type="text" name="newTask.description" [(ngModel)]="newTask.description">
+         <input type="text" name="newTask.completed" [(ngModel)]="newTask.completed">
+         <input type="submit" value="Create Task">
+         <!-- <button (click)="onSubmit()">Create a new Task</button> -->
+       </form>
+      </div>
+
+<!-- edit a task -->
+    <div *ngIf="editTask">
+          <h3>Edit {{editTask.title }}</h3>
+    
+          <!-- {{editTask | json}} -->
+          <form (submit)="updateTask(editTask)">
+    
+             <input type="text" name="editTask.title" placeholder={{editTask.title}} [(ngModel)]="editTask.title">
+             <input type="text" name="editTask.description" placeholder={{editTask.description}} [(ngModel)]="editTask.description">
+             <input type="text" name="editTask.completed" placeholder={{editTask.completed}} [(ngModel)]="editTask.completed">
+             <input type="submit" value="Update Task">
+           </form>
+    </div>
+  
+    <app-task *ngIf="selectedTask" [task]="selectedTask"></app-task>
+

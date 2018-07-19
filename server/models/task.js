@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 
+
 var TaskSchema = new mongoose.Schema({
     title: 
         { type: String, default: "" },
@@ -11,4 +12,7 @@ var TaskSchema = new mongoose.Schema({
         { type: Boolean, default: false },
 }, {timestamps: true});
 
-mongoose.model('Task', TaskSchema); //TaskSchema needs to be called in the mongoose.js after .//localhost/<SchemaName>'
+
+// registers the TaskSchema in the mongoose.model with the name Task
+mongoose.model('Task', TaskSchema);
+module.exports = TaskSchema;

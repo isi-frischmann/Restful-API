@@ -1,5 +1,7 @@
 const path = require('path');
 
+console.log(' 1 Your server file run');
+
 // server
 const port = 8000;
 
@@ -7,10 +9,14 @@ const port = 8000;
 var express = require('express');
 const app = express();
 
+// connection to the Angular files
+app.use(express.static(__dirname + '/myAngular/dist/public'));
+
 // bodyParser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 // require mongoose
 var mongoose = require('mongoose');

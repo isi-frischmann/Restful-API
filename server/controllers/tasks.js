@@ -4,6 +4,7 @@
 var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
 
+
 module.exports = {
 
     index: function (req, res) {
@@ -51,19 +52,23 @@ module.exports = {
 
     // update a task
     update: function (req, res) {
-        console.log("I'm going to update");
-        Task.findOneAndUpdate({ _id: req.params.id}, {$set: 
+        console.log("I'm going to update", req.body);
+        Task.findOneAndUpdate({ _id: req.body._id}, {$set: 
             {title: req.body.title, 
             description: req.body.description, 
-            completed: req.body.completed }}, function(err){
+            completed: req.body.completed }}, function(err, updatedTask){
             // updatedTask.save(function (err, updatedTask){
                 if (err) {
-                    console.log("Updating wasn't working my dear.");
+                    console.log("Updating wasn't working my dear.", err);
                     res.json({message: "Error", error: err});
                 }
+                if (updatedTask == null){
+                    console.log("Your task is not found");
+                    res.json({message: "Error"})
+                }
                 else{
-                    console.log("You're task is updated");
-                    res.json({message: "Updated"})
+                    console.log("You're task is updated", updatedTask);
+                    res.json({message: "Updated", updatedTask: updatedTask});
                 }
             });
             
@@ -72,7 +77,8 @@ module.exports = {
     delete: function (req, res) {
         Task.findOneAndRemove({ _id: req.params.id }, function(err, task){
             if(err){
-                console.log("Could not delete the task");
+                console.log("Could not delete the task in your controller file");
+                console.log("The id from the controller file", req.params.id);
                 res.json({message: "Not deleted"});
             }
             else{
